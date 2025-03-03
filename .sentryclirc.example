@@ -1,0 +1,6 @@
+[defaults]
+org=myorg
+project=gateway-worker
+
+[auth]
+token=

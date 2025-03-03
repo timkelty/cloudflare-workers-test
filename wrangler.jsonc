@@ -1,0 +1,49 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "gateway",
+	"main": "src/index.ts",
+	"account_id": "xxx",
+	"compatibility_date": "2025-02-14",
+	"compatibility_flags": ["nodejs_compat"],
+	"vars": {
+		"ENVIRONMENT": "development"
+	},
+	"env": {
+		"production": {
+			"upload_source_maps": true,
+			"kv_namespaces": [
+				{
+					"binding": "HOSTS",
+					"id": "xxx",
+
+					// Since we only read from the KV, it is safe to use the production KV for preview
+					"preview_id": "xxx"
+				}
+			],
+			"observability": {
+				"logs": {
+					"enabled": false,
+					"invocation_logs": false
+				}
+			},
+			"vars": {
+				"ENVIRONMENT": "production",
+				"SENTRY_DSN": "https://xxx@xxx.ingest.us.sentry.io/xxx"
+			},
+			"version_metadata": {
+				"binding": "CF_VERSION_METADATA"
+			}
+		},
+		"testing": {
+			// so html fixures are importable in tests
+			"find_additional_modules": true,
+
+			"vars": {
+				"ENVIRONMENT": "testing"
+			},
+			"version_metadata": {
+				"binding": "CF_VERSION_METADATA"
+			}
+		}
+	}
+}
