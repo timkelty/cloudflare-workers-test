@@ -1,8 +1,7 @@
-import { env, fetchMock, SELF } from 'cloudflare:test';
+import { fetchMock, SELF } from 'cloudflare:test';
 import documentWithEsi from './fixtures/html/document-with-esi.html';
 import { afterEach, beforeAll, expect, it } from 'vitest';
 import { interceptUrl } from './utils/utils';
-import HOSTS from './fixtures/kv/HOSTS';
 
 beforeAll(async () => {
 	// Enable outbound request mocking...

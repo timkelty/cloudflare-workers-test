@@ -19,6 +19,5 @@
 		// This improves issue grouping in Sentry.
 		"sourceRoot": "/"
 	},
-	"include": ["src/**/*.ts", "@types/types.d.ts", "@types/generated.d.ts"],
-	"exclude": ["dist"]
+	"include": ["src/**/*.ts", "@types/types.d.ts", "@types/generated.d.ts"]
 }

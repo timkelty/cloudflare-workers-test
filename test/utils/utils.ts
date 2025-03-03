@@ -1,19 +1,19 @@
-import { env, fetchMock } from 'cloudflare:test';
+import { env, fetchMock, MockInterceptor } from 'cloudflare:test';
+
+// @ts-ignore
 import { Worker } from '../../dist/index';
 
-export async function interceptUrl(url: string | URL, options: MockClientOptions = {}) {
-	url = new URL(url);
-
-	const { hostname, pathname, searchParams } = url;
+export async function interceptUrl(url: string | URL, options: Partial<MockInterceptor.Options> = {}) {
+	const { hostname, pathname, searchParams } = new URL(url);
 	const { originHostname } = await Worker.getKvDataForHostname(hostname, env);
 
-	options = Object.assign(
+	const interceptOptions: MockInterceptor.Options = Object.assign(
 		{
 			path: pathname,
 			query: Object.fromEntries(searchParams.entries()),
 		},
-		options
+		options,
 	);
 
-	return fetchMock.get(`https://${originHostname}`).intercept(options);
+	return fetchMock.get(`https://${originHostname}`).intercept(interceptOptions);
 }
