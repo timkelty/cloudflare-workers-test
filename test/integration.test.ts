@@ -1,14 +1,10 @@
 import { env, fetchMock, SELF } from 'cloudflare:test';
 import documentWithEsi from './fixtures/html/document-with-esi.html';
 import { afterEach, beforeAll, expect, it } from 'vitest';
-import { interceptUrl } from './utils';
+import { interceptUrl } from './utils/utils';
 import HOSTS from './fixtures/kv/HOSTS';
 
 beforeAll(async () => {
-	for (const [key, value] of Object.entries(HOSTS)) {
-		await env.HOSTS.put(key, JSON.stringify(value));
-	}
-
 	// Enable outbound request mocking...
 	fetchMock.activate();
 	// ...and throw errors if an outbound request isn't mocked
