@@ -70,6 +70,10 @@ export default class Worker {
 	}
 
 	private async verifyRequest(): Promise<Response | null> {
+		if (this.request.method === 'GET') {
+			return null;
+		}
+
 		const sharedSecret = this.kvData.signingKey ?? '';
 		const signingKeys = new Map();
 		signingKeys.set('hmac', createHmacVerifier(sharedSecret));

@@ -5,7 +5,7 @@ export async function interceptUrl(url: string | URL, options: MockClientOptions
 	url = new URL(url);
 
 	const { hostname, pathname, searchParams } = url;
-	const { functionUrl } = await Worker.getKvDataForHostname(hostname, env);
+	const { originHostname } = await Worker.getKvDataForHostname(hostname, env);
 
 	options = Object.assign(
 		{
@@ -15,5 +15,5 @@ export async function interceptUrl(url: string | URL, options: MockClientOptions
 		options
 	);
 
-	return fetchMock.get(functionUrl).intercept(options);
+	return fetchMock.get(`https://${originHostname}`).intercept(options);
 }
