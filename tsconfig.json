@@ -20,5 +20,5 @@
 		"sourceRoot": "/"
 	},
 	"include": ["src/**/*.ts", "@types/types.d.ts", "@types/generated.d.ts"],
-	"exclude": ["dist", "test"]
+	"exclude": ["dist"]
 }
