@@ -32,10 +32,7 @@ export default class Worker {
 	}
 
 	static async getKvDataForHostname(hostname: string, env: Env): Promise<KeyValueData> {
-		const kvData: KeyValueData | null = await env.HOSTS.get(
-			hostname,
-			{ type: 'json' }
-		);
+		const kvData: KeyValueData | null = await env.HOSTS.get(hostname, { type: 'json' });
 
 		if (!kvData) {
 			throw new Error(`No gateway data found for hostname: ${hostname}`);
@@ -61,10 +58,7 @@ export default class Worker {
 
 	async fetch(): Promise<Response> {
 		try {
-			return (
-				(await this.verifyRequest()) ||
-				(await this.fetchOrigin())
-			);
+			return (await this.verifyRequest()) || (await this.fetchOrigin());
 		} catch (e) {
 			this.sentry.captureException(e);
 			console.error(e);
@@ -85,10 +79,9 @@ export default class Worker {
 				status: 401,
 			});
 		}
-		
+
 		return null;
 	}
-
 
 	private async purgeByTag(tag: string): Promise<Response> {
 		const tags = tag
@@ -202,7 +195,7 @@ export default class Worker {
 
 	private async fetchEsiRequest(requestInfo: RequestInfo, ctx: Request[]): Promise<Response> {
 		const request = new Request(requestInfo);
-		const isOriginRequest = this.kvData.hostname === (new URL(request.url)).hostname;
+		const isOriginRequest = this.kvData.hostname === new URL(request.url).hostname;
 
 		// Only include headers from root request if this is a request to origin
 		if (isOriginRequest) {
@@ -221,7 +214,7 @@ export default class Worker {
 		const requestUrl = new URL(request.url);
 		const headers = new Headers(request.headers);
 		const originRequestUrl = new URL(this.kvData.functionUrl);
-		
+
 		originRequestUrl.pathname = requestUrl.pathname;
 		originRequestUrl.search = encodeSearchParams(requestUrl.searchParams);
 

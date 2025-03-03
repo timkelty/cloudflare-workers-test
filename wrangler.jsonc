@@ -35,7 +35,7 @@
 			}
 		},
 		"testing": {
-			// so html fixures are importable in tests
+			// so html fixtures are importable in tests
 			"find_additional_modules": true,
 
 			"vars": {
