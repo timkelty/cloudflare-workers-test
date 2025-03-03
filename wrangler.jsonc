@@ -6,7 +6,8 @@
 	"compatibility_date": "2025-02-14",
 	"compatibility_flags": ["nodejs_compat"],
 	"vars": {
-		"ENVIRONMENT": "development"
+		"ENVIRONMENT": "development",
+		"CF_ZONE_ID": "xxx"
 	},
 	"env": {
 		"production": {
@@ -28,7 +29,8 @@
 			},
 			"vars": {
 				"ENVIRONMENT": "production",
-				"SENTRY_DSN": "https://xxx@xxx.ingest.us.sentry.io/xxx"
+				"SENTRY_DSN": "https://xxx@xxx.ingest.us.sentry.io/xxx",
+				"CF_ZONE_ID": "xxx"
 			},
 			"version_metadata": {
 				"binding": "CF_VERSION_METADATA"
@@ -39,7 +41,8 @@
 			"find_additional_modules": true,
 
 			"vars": {
-				"ENVIRONMENT": "testing"
+				"ENVIRONMENT": "testing",
+				"CF_ZONE_ID": "xxx"
 			},
 			"version_metadata": {
 				"binding": "CF_VERSION_METADATA"

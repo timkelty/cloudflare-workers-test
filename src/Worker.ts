@@ -140,11 +140,9 @@ export default class Worker {
 					return null;
 				}
 
-				const functionUrl = new URL(`https://${this.kvData.environmentId}.`);
-
 				// Allows the prefix to be a full URL or just a path
-				const url = new URL(prefix, functionUrl);
-				url.host = functionUrl.host;
+				const url = new URL(prefix, `https://${this.kvData.originHostname}`);
+				url.host = this.kvData.originHostname;
 
 				// https://developers.cloudflare.com/cache/how-to/purge-cache/purge_by_prefix/
 				return url.host + url.pathname;
@@ -213,7 +211,7 @@ export default class Worker {
 		const request = new Request(requestInfo);
 		const requestUrl = new URL(request.url);
 		const headers = new Headers(request.headers);
-		const originRequestUrl = new URL(this.kvData.functionUrl);
+		const originRequestUrl = new URL(`https://${this.kvData.originHostname}`);
 
 		originRequestUrl.pathname = requestUrl.pathname;
 		originRequestUrl.search = encodeSearchParams(requestUrl.searchParams);

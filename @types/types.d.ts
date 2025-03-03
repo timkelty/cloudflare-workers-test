@@ -1,6 +1,8 @@
 declare interface KeyValueData {
 	environmentId: string;
 	signingKey: string;
+	hostname: string;
+	originHostname: string;
 }
 
 declare interface Env extends GeneratedEnv {
